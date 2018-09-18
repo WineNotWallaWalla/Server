@@ -62,7 +62,7 @@ describe('Event E2E API', () => {
     });
 
     it('gets event by id', () => {
-        return request.get(`/api/event/${wineTime._id}`)
+        return request.get(`/api/events/${wineTime._id}`)
             .then(({ body }) => {
                 assert.deepEqual(body, wineTime);
             });
