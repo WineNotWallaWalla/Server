@@ -7,7 +7,7 @@ describe('Event model', () => {
 
     const data = {
         name: 'Ladies Wine Night',
-        descritption: 'Come have some wine with your friends',
+        description: 'Come have some wine with your friends',
         location: 'Winery',
         time: {
             start: new Date(2018, 6, 22, 7, 30),
