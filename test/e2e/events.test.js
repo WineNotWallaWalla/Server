@@ -20,18 +20,44 @@ describe('Event E2E API', () => {
         }
     };
 
+    let wineParty = {
+        name: 'Wine Party',
+        description: 'Party to drink some wine!',
+        location: 'Place with Wine',
+        time: {
+            start: startTime.toJSON(),
+            end: endTime.toJSON()
+        }
+    };
+
+    before(() => {
+        return request.post('/api/events')
+            .send(wineParty)
+            .then(({ body }) => {
+                wineParty = body;
+            });
+    });
+
     it('posts an event', () => {
         return request.post('/api/events')
             .send(wineTime)
             .then(({ body }) => {
                 const { _id, __v } = body;
-                assert.ok(id);
+                assert.ok(_id);
                 assert.equal(__v, 0);
                 assert.deepEqual(body, {
                     ...wineTime,
                     _id,
                     __v
                 });
+                wineTime = body;
+            });
+    });
+
+    it('gets all events', () => {
+        return request.get('/api/events')
+            .then(({ body }) => {
+                assert.deepEqual(body, [wineParty, wineTime]);
             });
     });
 });
