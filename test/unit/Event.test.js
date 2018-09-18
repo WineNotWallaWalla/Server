@@ -21,4 +21,14 @@ describe('Event model', () => {
         assert.deepEqual(event.toJSON(), data);
         assert.isUndefined(event.validateSync());
     });
+
+    it('event required fields', () => {
+        const event = new Event({ });
+        const errors = getErrors(event.validateSync(), 4);
+
+        assert.equal(errors.name.kind, 'required');
+        assert.equal(errors.description.kind, 'required');
+        assert.equal(errors.location.kind, 'required');
+        assert.equal(errors['time.start'].kind, 'required');
+    });
 });
